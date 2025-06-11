@@ -1,0 +1,10 @@
+Install opengl
+install glad
+install g++
+
+edit ./vscode/c_cpp_properties.json include path to include path to glad and path to opengl
+
+g++ -c C:\glad\src\glad.c -I"C:\glad\include" -o glad.o
+g++ -c ./*.cpp -I"C:\glfw-3.4-win\include" -I"C:\glad\include"  -I"C:\glm-1.0.1"
+g++ main.o glad.o BoxMesh.o Mesh.o -o main -L"C:\glfw-3.4-win\lib-mingw-w64" -lglfw3 -lopengl32 -lgdi32   
+./main.exe
