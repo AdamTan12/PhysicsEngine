@@ -7,7 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>  // for glm::translate, glm::scale, glm::rotate, glm::perspective…
 #include <glm/gtc/type_ptr.hpp>  // for glm::value_ptr
 
-#include "MeshRenderer.h"
+#include "components/MeshRenderer.h"
 #include "Box.h"
 #include "Camera.h"
 
@@ -54,7 +54,8 @@ int main() {
     glm::mat4 view = gCamera.getViewMatrix();
 
     Box box = Box();
-    box.meshRenderer->setMesh(new Mesh());
+    MeshRenderer* mr = box.AddComponent<MeshRenderer>();
+    mr->setMesh(new Mesh());
     box.transform->position.z = -2.0f;
     float x = 0.0f;
     float y = 0.0f;
@@ -88,14 +89,14 @@ int main() {
         glPolygonOffset(1.0f, 1.0f);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glUniform3f(colorLoc, 0.0, 0.0, 0.0);
-        box.meshRenderer->Draw(shaderProgram);
+        mr->Draw(shaderProgram);
         //box2.meshRenderer->Draw(shaderProgram);
         glDisable(GL_POLYGON_OFFSET_FILL);
         
         glLineWidth(3.0f);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glUniform3f(colorLoc, 1.0, 1.0, 1.0);
-        box.meshRenderer->Draw(shaderProgram);
+        mr->Draw(shaderProgram);
         //box2.meshRenderer->Draw(shaderProgram);
         x += 0.01f;
         y += 0.01f;

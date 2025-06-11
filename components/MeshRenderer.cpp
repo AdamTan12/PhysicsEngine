@@ -1,8 +1,7 @@
 #include "MeshRenderer.h"
-#include "Object.h"   
+#include "../Object.h"   
 MeshRenderer::MeshRenderer() {}
-MeshRenderer::MeshRenderer(Object *p) {
-    parent = p;
+MeshRenderer::MeshRenderer(Object *p) : Component(p, p->transform) {
 }
 void MeshRenderer::setMesh(Mesh *mesh) {
     this->mesh = mesh;
@@ -19,9 +18,9 @@ void MeshRenderer::setMesh(Mesh *mesh) {
 void MeshRenderer::Draw(GLuint shaderProgram) {
     if (mesh != nullptr) {
         // u_model
-        glm::mat4 model = glm::mat4_cast(parent->transform->rotation);
-        model = glm::translate(model, parent->transform->position);
-        model = glm::scale(model, parent->transform->scale);
+        glm::mat4 model = glm::mat4_cast(transform->rotation);
+        model = glm::translate(model, transform->position);
+        model = glm::scale(model, transform->scale);
 
         GLint loc = glGetUniformLocation(shaderProgram, "u_model");
         glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(model));

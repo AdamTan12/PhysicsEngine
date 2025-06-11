@@ -5,18 +5,18 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp> 
 #include <glm/gtc/type_ptr.hpp>
-#include "Mesh.h"
+#include "../Mesh.h"
+#include "Component.h"
 
 using namespace std;
 
 class Object;
 
-struct MeshRenderer {
+struct MeshRenderer : public Component {
     GLuint VBO, VAO;
     Mesh *mesh= nullptr;
-    Object *parent = nullptr;
     MeshRenderer();
-    MeshRenderer(Object *parent);
+    MeshRenderer(Object* gameObject);
     void Draw(GLuint shader);
     void setMesh(Mesh *mesh);
 };
