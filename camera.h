@@ -10,6 +10,8 @@ struct Camera {
     
     glm::mat4 mViewMatrix;
 
+    Camera();
+
     glm::mat4 getViewMatrix() const;
     void MoveFoward();
     void MoveBackward();

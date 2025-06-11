@@ -9,6 +9,7 @@
 
 #include "MeshRenderer.h"
 #include "Box.h"
+#include "Camera.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -49,10 +50,12 @@ int main() {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
+    Camera gCamera = Camera();
+    glm::mat4 view = gCamera.getViewMatrix();
 
     Box box = Box();
     box.meshRenderer->setMesh(new Mesh());
-    box.transform->position.z = -2.5f;
+    box.transform->position.z = -2.0f;
     float x = 0.0f;
     float y = 0.0f;
 
@@ -64,8 +67,17 @@ int main() {
     
 
     GLuint shaderProgram = loadShader("shaders/vertex.glsl", "shaders/fragment.glsl");
+    glUseProgram(shaderProgram);
     GLuint colorLoc = glGetUniformLocation(shaderProgram, "uColor");
-
+    // u_view
+    GLint  uView = glGetUniformLocation(shaderProgram, "u_view");
+    glUniformMatrix4fv(uView, 1, GL_FALSE, glm::value_ptr(view));
+    // u_perspective
+    glm::mat4 perspective = glm::perspective(glm::radians(45.0f), 
+                                                800.0f/600.0f,
+                                                0.1f, 50.0f);
+    GLint per = glGetUniformLocation(shaderProgram, "u_perspective");
+    glUniformMatrix4fv(per, 1, GL_FALSE, (glm::value_ptr(perspective)));
     while (!glfwWindowShouldClose(window)) {
         glUseProgram(shaderProgram);
 
@@ -90,10 +102,8 @@ int main() {
         glm::vec3 eulerDeg(x, y, 0.0f);
         glm::vec3 eulerRad = glm::radians(eulerDeg);
         glm::quat q = glm::quat(eulerRad);
-        box.transform->position.z = 0.0f;
-        box.transform->rotation = q;
-        box.transform->position.z = -2.5f;
 
+        box.transform->rotation = q;
 
         //box2.transform->rotation = q;
 

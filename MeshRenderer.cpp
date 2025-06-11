@@ -23,14 +23,8 @@ void MeshRenderer::Draw(GLuint shaderProgram) {
         model = glm::translate(model, parent->transform->position);
         model = glm::scale(model, parent->transform->scale);
 
-        // u_perspective
-        glm::mat4 perspective = glm::perspective(glm::radians(45.0f), 
-                                                    800.0f/600.0f,
-                                                    0.1f, 10.0f);
-        GLint per = glGetUniformLocation(shaderProgram, "u_perspective");
         GLint loc = glGetUniformLocation(shaderProgram, "u_model");
         glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(per, 1, GL_FALSE, (glm::value_ptr(perspective)));
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, mesh->vertices.size());
 
