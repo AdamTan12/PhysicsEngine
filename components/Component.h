@@ -8,5 +8,6 @@ struct Component {
     Transform *transform;
     Component();
     Component(Object* gameObject, Transform* t);
+    virtual ~Component();
 };
 #endif

@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <type_traits>
 #include "components/Transform.h"
 #include "components/Component.h"
 using namespace std;
@@ -11,15 +12,24 @@ using namespace std;
 struct Object {
     string name;
     Transform *transform;
-    vector<unique_ptr<Component>> components;
+    vector<Component*> components;
     Object();
 
     template<typename T>
     T* AddComponent() {
-        auto up = std::make_unique<T>(this);  // always calls T(Object*)
-        T* raw = up.get();
-        components.emplace_back(std::move(up));
-        return raw;
+        static_assert(std::is_base_of<Component, T>::value, "AddComponent<T>: T must inherit from Component");
+        T* component = new T(this);
+        components.push_back(component);
+        return component;
     };
+    template<typename T>
+    T* GetComponent() {
+        static_assert(std::is_base_of<Component, T>::value, "AddComponent<T>: T must inherit from Component");
+        for (int i = 0; i < components.size(); i ++) {
+            if (dynamic_cast<T*>(components[i]) != nullptr)
+                return dynamic_cast<T*>(components[i]);
+        }
+        return nullptr;
+    }
 };
 #endif

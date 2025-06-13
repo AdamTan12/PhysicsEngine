@@ -54,7 +54,8 @@ int main() {
     glm::mat4 view = gCamera.getViewMatrix();
 
     Box box = Box();
-    MeshRenderer* mr = box.AddComponent<MeshRenderer>();
+    box.AddComponent<MeshRenderer>();
+    MeshRenderer* mr = box.GetComponent<MeshRenderer>();
     mr->setMesh(new Mesh());
     box.transform->position.z = -2.0f;
     float x = 0.0f;
