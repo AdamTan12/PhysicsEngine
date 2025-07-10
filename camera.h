@@ -2,12 +2,25 @@
 #define CAMERA_H
 
 #include "glm/glm.hpp"
-
+/**
+ * @brief Represents the viewpoint of the gameworld
+ */
 struct Camera {
+    /**
+     * 
+     */
     glm::vec3 mEye;
+    /**
+     * 
+     */
     glm::vec3 mViewDirection;
+    /**
+     * 
+     */
     glm::vec3 mUpVector;
-    
+    /**
+     * 
+     */
     glm::mat4 mViewMatrix;
 
     Camera();

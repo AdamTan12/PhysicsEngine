@@ -14,7 +14,7 @@ class Object;
 
 struct MeshRenderer : public Component {
     GLuint VBO, VAO;
-    Mesh *mesh= nullptr;
+    Mesh *mesh = nullptr;
     MeshRenderer();
     MeshRenderer(Object* gameObject);
     void Draw(GLuint shader);

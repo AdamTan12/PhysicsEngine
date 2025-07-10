@@ -25,6 +25,8 @@ struct RigidBody : public Component {
     void PublishTransform();
     void ResetCenterOfMass();
     void ResetInertiaTensor();
+    void GetAccumulatedForce();
+    void GetAccumulatedTorque();
 };
 
 #endif

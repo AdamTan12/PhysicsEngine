@@ -1,6 +1,7 @@
 #include "Mesh.h"
 using namespace std;
 Mesh::Mesh() {
+    // vertices
     vector<glm::vec3> vertices {
         //back
         { -0.5f, -0.5f, -0.5f },
@@ -52,6 +53,17 @@ Mesh::Mesh() {
         { -0.5f, -0.5f,  0.5f },
     };
     this->vertices = vertices;
+
+    //indices
+    vector<unsigned int> indices {
+
+    };
+    this->indices = indices;
+    //faces
+    vector<Face> faces {
+
+    };
+    this->faces = faces;
 }
 // {-0.600f, 0.700f, -0.200f},
 //     {0.600f, 0.700f, -0.200f},
