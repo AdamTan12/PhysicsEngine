@@ -52,6 +52,12 @@ struct Object {
         static_assert(std::is_base_of<Component, T>::value, "AddComponent<T>: T must inherit from Component");
         T* component = new T(this);
         components.push_back(component);
+        
+        Collider* collider = dynamic_cast<Collider*>(component);
+        if (collider) {
+            // add to collider list here
+        }
+
         return component;
     };
     /**
