@@ -14,7 +14,7 @@ RigidBody::RigidBody(Object *object) : Component(object, object->transform) {
     worldCenterOfMass = glm::vec3(0, 0, 0);
 }
 void RigidBody::AddForce(glm::vec3 force) {
-
+    glm::vec3 acceleration = force/mass;
 }
 void RigidBody::AddForceAtPosition(glm::vec3 force, glm::vec3 position) {
 
@@ -35,5 +35,5 @@ void RigidBody::GetAccumulatedForce() {
 
 }
 void RigidBody::GetAccumulatedTorque() {
-    
+
 }

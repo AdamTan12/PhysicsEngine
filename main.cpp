@@ -8,8 +8,10 @@
 #include <glm/gtc/type_ptr.hpp>  // for glm::value_ptr
 
 #include "components/MeshRenderer.h"
+#include "components/MeshCollider.h"
 #include "Box.h"
 #include "Camera.h"
+#include "CollisionSystem.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -55,18 +57,29 @@ int main() {
 
     Box box = Box();
     box.AddComponent<MeshRenderer>();
+    box.AddComponent<MeshCollider>();
     MeshRenderer* mr = box.GetComponent<MeshRenderer>();
+    MeshCollider* mc = box.GetComponent<MeshCollider>();
     mr->setMesh(new Mesh());
-    box.transform->position.z = -2.0f;
-    float x = 0.0f;
-    float y = 0.0f;
+    mc->setMesh(new Mesh());
 
-    // Box box2 = Box();
-    // box2.transform->position.y = 1.0f;
-    // box2.transform->position.x = 1.0f;
-    // box2.transform->scale = glm::vec3(1.0f, 1.2f, 1.0f);
-    // box2.meshRenderer->setMesh(new Mesh());
+    glm::vec3 eulerDeg(45.0f, 45.0f, 0.0f);
+    glm::vec3 eulerRad = glm::radians(eulerDeg);
+    glm::quat q = glm::quat(eulerRad);
+    //box.transform->position.x = 4;
+    box.transform->rotation = q;
     
+
+
+    Box box2 = Box();
+    box2.AddComponent<MeshRenderer>();
+    box2.AddComponent<MeshCollider>();
+    MeshRenderer* mr2 = box2.GetComponent<MeshRenderer>();
+    MeshCollider* mc2 = box2.GetComponent<MeshCollider>();
+    mc2->setMesh(new Mesh());
+    mr2->setMesh(new Mesh());
+    box2.transform->position.x = -4;
+
 
     GLuint shaderProgram = loadShader("shaders/vertex.glsl", "shaders/fragment.glsl");
     glUseProgram(shaderProgram);
@@ -81,6 +94,9 @@ int main() {
     GLint per = glGetUniformLocation(shaderProgram, "u_perspective");
     glUniformMatrix4fv(per, 1, GL_FALSE, (glm::value_ptr(perspective)));
     while (!glfwWindowShouldClose(window)) {
+        //do collision stuff 
+        CollisionSystem::collisionLoop();
+        //also all physics stuff, move all changes here later
         glUseProgram(shaderProgram);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -91,22 +107,17 @@ int main() {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glUniform3f(colorLoc, 0.0, 0.0, 0.0);
         mr->Draw(shaderProgram);
-        //box2.meshRenderer->Draw(shaderProgram);
+        mr2->Draw(shaderProgram);
         glDisable(GL_POLYGON_OFFSET_FILL);
         
         glLineWidth(3.0f);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glUniform3f(colorLoc, 1.0, 1.0, 1.0);
         mr->Draw(shaderProgram);
-        //box2.meshRenderer->Draw(shaderProgram);
-        x += 0.01f;
-        y += 0.01f;
-        glm::vec3 eulerDeg(x, y, 0.0f);
-        glm::vec3 eulerRad = glm::radians(eulerDeg);
-        glm::quat q = glm::quat(eulerRad);
-
-        box.transform->rotation = q;
-
+        mr2->Draw(shaderProgram);
+        box.transform->position.x -= 0.001f;
+        box.transform->position.y -= 0.001f;
+        box.transform->position.z -= 0.001f;
         //box2.transform->rotation = q;
 
         glfwSwapBuffers(window);

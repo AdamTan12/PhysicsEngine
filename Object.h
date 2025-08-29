@@ -6,6 +6,8 @@
 #include <type_traits>
 #include "components/Transform.h"
 #include "components/Component.h"
+#include "components/Collider.h"
+#include "CollisionSystem.h"
 using namespace std;
 
 /**
@@ -55,7 +57,7 @@ struct Object {
         
         Collider* collider = dynamic_cast<Collider*>(component);
         if (collider) {
-            // add to collider list here
+            CollisionSystem::colliders.push_back(collider);
         }
 
         return component;

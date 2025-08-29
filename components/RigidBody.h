@@ -1,7 +1,7 @@
 #ifndef RIGIDBODY_H
 #define RIGIDBODY_H
 #include "glm/glm.hpp"
-#include "Object.h"
+#include "../Object.h"
 #include <glm/gtc/quaternion.hpp> 
 
 struct RigidBody : public Component {

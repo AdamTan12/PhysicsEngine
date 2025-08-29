@@ -22,7 +22,7 @@ struct MeshRenderer : public Component {
      * 
      * VAO stores the configuration of vertex attribute pointers.
      */
-    GLuint VBO, VAO;
+    GLuint VBO, VAO, EBO;
     /**
      * @brief Pointer to the mesh to draw.
      */

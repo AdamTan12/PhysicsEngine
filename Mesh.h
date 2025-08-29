@@ -13,7 +13,7 @@ struct Face {
     /**
      * @brief i1, i2, and i3 represent the different indices of the vectors used to create this face.
      */
-    glm::vec3 i1, i2, i3;
+    int i1, i2, i3;
     /**
      * @brief
      */
@@ -22,6 +22,8 @@ struct Face {
      * @brief
      */
     glm::vec3 norm;
+    Face();
+    Face(int indice1, int indice2, int indice3);
 };
 /**
  * @brief 3d structure to represent a model.
@@ -42,6 +44,10 @@ struct Mesh {
      * @brief Vector(data structure) of faces that make up the mesh.
      */
     vector<Face> faces;
+    /**
+     * @brief Vector of edges in the shape (an edge is the line shared by two faces)
+     */
+    vector<glm::vec3> edges;
     /**
      * @brief default constructor
      */

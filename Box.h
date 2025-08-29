@@ -6,5 +6,5 @@ using namespace std;
 
 struct Box : public Object {
     Box();
-};
+};  
 #endif

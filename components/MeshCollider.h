@@ -4,12 +4,13 @@
 #include "../Mesh.h"
 
 struct MeshCollider : public Collider {
-    Mesh* mesh = nullptr;
-
+       
     MeshCollider();
     MeshCollider(Object* gameObject);
-    ~MeshCollider();
+    ~MeshCollider() = default;
 
+    bool setMesh(Mesh* mesh);
+    bool collideWith(Collider* other) override;
 };
 
 #endif

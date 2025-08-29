@@ -29,6 +29,6 @@ struct Component {
      * @param transform Transform of the Object that this Component is attached to.
      */
     Component(Object* gameObject, Transform* transform);
-    virtual ~Component();
+    virtual ~Component() =0;
 };
 #endif
