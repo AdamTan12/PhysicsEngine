@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp> 
 #include "Component.h"
+#include "../Object.h"
 using namespace std;
 /**
  * @brief Inherits from Component.
@@ -39,5 +40,9 @@ struct Transform : public Component{
      * @param gameObject Object that this Transform is attached to.
      */
     Transform(Object* gameObject);
+    /**
+     * @brief returns the transform of the object in world space
+     */
+    glm::mat4 getWorldMatrix();
 };
 #endif

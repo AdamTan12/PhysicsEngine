@@ -14,13 +14,15 @@ bool MeshCollider::collideWith(Collider* other) {
     vector<glm::vec3> axi;
     //cout << mesh->edges.size() << endl;
 
-    glm::mat4 modelA = glm::mat4_cast(transform->rotation)
-                * glm::translate(glm::mat4(1.0f), transform->position)
-                * glm::scale(glm::mat4(1.0f), transform->scale);
+    // glm::mat4 modelA = glm::mat4_cast(transform->rotation)
+    //             * glm::translate(glm::mat4(1.0f), transform->position)
+    //             * glm::scale(glm::mat4(1.0f), transform->scale);
 
-    glm::mat4 modelB = glm::mat4_cast(other->transform->rotation)   // quaternion
-                * glm::translate(glm::mat4(1.0f), other->transform->position)
-                * glm::scale(glm::mat4(1.0f), other->transform->scale);
+    // glm::mat4 modelB = glm::mat4_cast(other->transform->rotation)   // quaternion
+    //             * glm::translate(glm::mat4(1.0f), other->transform->position)
+    //             * glm::scale(glm::mat4(1.0f), other->transform->scale);
+    glm::mat4 modelA = transform->getWorldMatrix();
+    glm::mat4 modelB = other->transform->getWorldMatrix();
 
     for (int i = 0; i < mesh->edges.size(); i ++) {
         for (int j = 0; j < other->mesh->edges.size(); j ++) {

@@ -28,6 +28,10 @@ struct Object {
      */
     Transform *transform;
     /**
+     * @brief parent object of this object
+     */
+    Object* parent = nullptr;
+    /**
      * @brief Vector of all the components attached to this object.
      * 
      * Components define the object's behaviour, such as rendering, physics, or scripting.

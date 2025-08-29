@@ -4,7 +4,7 @@
 
 Object::Object() {
     name = "gameObject";
-    transform = new Transform();
+    transform = new Transform(this);
 }
 
 // implement template functions in header files, kinda cringe
